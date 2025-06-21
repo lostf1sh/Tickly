@@ -18,7 +18,7 @@ class TimerModel {
   bool hasNotification;
   bool hasDailyReminder;
   TimeOfDay? dailyReminderTime;
-  IconData icon;
+  String iconName;
   Color themeColor;
   RecurrenceType recurrenceType;
   DateTime? originalTargetDateTime;
@@ -32,7 +32,7 @@ class TimerModel {
     this.hasNotification = false,
     this.hasDailyReminder = false,
     this.dailyReminderTime,
-    this.icon = Icons.timer,
+    this.iconName = 'timer',
     this.themeColor = Colors.blue,
     this.recurrenceType = RecurrenceType.none,
     this.originalTargetDateTime,
@@ -50,7 +50,7 @@ class TimerModel {
       'dailyReminderTime': dailyReminderTime != null 
           ? '${dailyReminderTime!.hour}:${dailyReminderTime!.minute}'
           : null,
-      'icon': icon.codePoint,
+      'iconName': iconName,
       'themeColor': themeColor.value,
       'recurrenceType': recurrenceType.index,
       'originalTargetDateTime': originalTargetDateTime?.millisecondsSinceEpoch,
@@ -81,7 +81,7 @@ class TimerModel {
       hasNotification: json['hasNotification'] ?? false,
       hasDailyReminder: json['hasDailyReminder'] ?? false,
       dailyReminderTime: dailyReminderTime,
-      icon: IconData(json['icon'] ?? Icons.timer.codePoint, fontFamily: 'MaterialIcons'),
+      iconName: json['iconName'] ?? 'timer',
       themeColor: Color(json['themeColor'] ?? Colors.blue.value),
       recurrenceType: RecurrenceType.values[json['recurrenceType'] ?? 0],
       originalTargetDateTime: originalTargetDateTime,
@@ -152,7 +152,7 @@ class TimerModel {
     bool? hasNotification,
     bool? hasDailyReminder,
     TimeOfDay? dailyReminderTime,
-    IconData? icon,
+    String? iconName,
     Color? themeColor,
     RecurrenceType? recurrenceType,
     DateTime? originalTargetDateTime,
@@ -166,10 +166,37 @@ class TimerModel {
       hasNotification: hasNotification ?? this.hasNotification,
       hasDailyReminder: hasDailyReminder ?? this.hasDailyReminder,
       dailyReminderTime: dailyReminderTime ?? this.dailyReminderTime,
-      icon: icon ?? this.icon,
+      iconName: iconName ?? this.iconName,
       themeColor: themeColor ?? this.themeColor,
       recurrenceType: recurrenceType ?? this.recurrenceType,
       originalTargetDateTime: originalTargetDateTime ?? this.originalTargetDateTime,
     );
+  }
+
+  static const Map<String, IconData> iconMap = {
+    'timer': Icons.timer,
+    'event': Icons.event,
+    'cake': Icons.cake,
+    'celebration': Icons.celebration,
+    'flight': Icons.flight,
+    'school': Icons.school,
+    'work': Icons.work,
+    'favorite': Icons.favorite,
+    'star': Icons.star,
+    'home': Icons.home,
+    'sports_soccer': Icons.sports_soccer,
+    'music_note': Icons.music_note,
+    'book': Icons.book,
+    'fitness_center': Icons.fitness_center,
+    'restaurant': Icons.restaurant,
+    'shopping_cart': Icons.shopping_cart,
+    'medical_services': Icons.medical_services,
+    'psychology': Icons.psychology,
+    'science': Icons.science,
+    'architecture': Icons.architecture,
+  };
+
+  static IconData iconNameToIconData(String name) {
+    return iconMap[name] ?? Icons.timer;
   }
 } 

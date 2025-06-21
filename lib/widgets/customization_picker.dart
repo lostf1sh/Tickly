@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import '../models/timer_model.dart';
 
 class CustomizationPicker extends StatefulWidget {
-  final IconData initialIcon;
+  final String initialIconName;
   final Color initialColor;
-  final Function(IconData) onIconChanged;
+  final Function(String) onIconChanged;
   final Function(Color) onColorChanged;
 
   const CustomizationPicker({
     super.key,
-    required this.initialIcon,
+    required this.initialIconName,
     required this.initialColor,
     required this.onIconChanged,
     required this.onColorChanged,
@@ -19,30 +20,30 @@ class CustomizationPicker extends StatefulWidget {
 }
 
 class _CustomizationPickerState extends State<CustomizationPicker> {
-  late IconData _selectedIcon;
+  late String _selectedIconName;
   late Color _selectedColor;
 
-  static const List<IconData> availableIcons = [
-    Icons.timer,
-    Icons.event,
-    Icons.cake,
-    Icons.celebration,
-    Icons.flight,
-    Icons.school,
-    Icons.work,
-    Icons.favorite,
-    Icons.star,
-    Icons.home,
-    Icons.sports_soccer,
-    Icons.music_note,
-    Icons.book,
-    Icons.fitness_center,
-    Icons.restaurant,
-    Icons.shopping_cart,
-    Icons.medical_services,
-    Icons.psychology,
-    Icons.science,
-    Icons.architecture,
+  static const List<String> availableIconNames = [
+    'timer',
+    'event',
+    'cake',
+    'celebration',
+    'flight',
+    'school',
+    'work',
+    'favorite',
+    'star',
+    'home',
+    'sports_soccer',
+    'music_note',
+    'book',
+    'fitness_center',
+    'restaurant',
+    'shopping_cart',
+    'medical_services',
+    'psychology',
+    'science',
+    'architecture',
   ];
 
   static const List<Color> availableColors = [
@@ -66,7 +67,7 @@ class _CustomizationPickerState extends State<CustomizationPicker> {
   @override
   void initState() {
     super.initState();
-    _selectedIcon = widget.initialIcon;
+    _selectedIconName = widget.initialIconName;
     _selectedColor = widget.initialColor;
   }
 
@@ -98,17 +99,18 @@ class _CustomizationPickerState extends State<CustomizationPicker> {
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
             ),
-            itemCount: availableIcons.length,
+            itemCount: availableIconNames.length,
             itemBuilder: (context, index) {
-              final icon = availableIcons[index];
-              final isSelected = icon == _selectedIcon;
+              final iconName = availableIconNames[index];
+              final icon = TimerModel.iconNameToIconData(iconName);
+              final isSelected = iconName == _selectedIconName;
               
               return InkWell(
                 onTap: () {
                   setState(() {
-                    _selectedIcon = icon;
+                    _selectedIconName = iconName;
                   });
-                  widget.onIconChanged(icon);
+                  widget.onIconChanged(iconName);
                 },
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
@@ -216,7 +218,7 @@ class _CustomizationPickerState extends State<CustomizationPicker> {
           child: Row(
             children: [
               Icon(
-                _selectedIcon,
+                TimerModel.iconNameToIconData(_selectedIconName),
                 color: _selectedColor,
                 size: 32,
               ),

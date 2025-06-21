@@ -196,7 +196,7 @@ class _TimerCardState extends State<TimerCard> with TickerProviderStateMixin, Wi
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Icon(
-                              widget.timer.icon,
+                              TimerModel.iconNameToIconData(widget.timer.iconName),
                               color: widget.timer.themeColor,
                               size: 20,
                             ),

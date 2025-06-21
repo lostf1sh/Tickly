@@ -56,7 +56,7 @@ class ShareService {
       ..strokeWidth = 3;
     canvas.drawCircle(const Offset(200, 80), 40, iconBorderPaint);
     
-    _drawIcon(canvas, timer.icon, const Offset(200, 80), 24, timer.themeColor);
+    _drawIcon(canvas, TimerModel.iconNameToIconData(timer.iconName), const Offset(200, 80), 24, timer.themeColor);
     
     final textPainter = TextPainter(
       text: TextSpan(
@@ -170,16 +170,12 @@ class ShareService {
   }
 
   void _drawIcon(Canvas canvas, IconData icon, Offset offset, double size, Color color) {
-    final iconData = IconData(
-      icon.codePoint,
-      fontFamily: icon.fontFamily,
-    );
     final textPainter = TextPainter(
       text: TextSpan(
-        text: String.fromCharCode(iconData.codePoint),
+        text: String.fromCharCode(icon.codePoint),
         style: TextStyle(
           fontSize: size,
-          fontFamily: iconData.fontFamily,
+          fontFamily: icon.fontFamily,
           color: color,
         ),
       ),

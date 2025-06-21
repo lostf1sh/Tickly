@@ -21,7 +21,7 @@ class _TimerFormDialogState extends State<TimerFormDialog> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   DateTime _selectedDateTime = DateTime.now().add(const Duration(days: 1));
-  IconData _selectedIcon = Icons.event;
+  String _selectedIconName = 'event';
   Color _selectedColor = Colors.blue;
   RecurrenceType _recurrenceType = RecurrenceType.none;
   bool _hasNotification = true;
@@ -35,7 +35,7 @@ class _TimerFormDialogState extends State<TimerFormDialog> {
     if (widget.timer != null) {
       _nameController.text = widget.timer!.name;
       _selectedDateTime = widget.timer!.targetDateTime;
-      _selectedIcon = widget.timer!.icon;
+      _selectedIconName = widget.timer!.iconName;
       _selectedColor = widget.timer!.themeColor;
       _recurrenceType = widget.timer!.recurrenceType;
       _hasNotification = widget.timer!.hasNotification;
@@ -213,9 +213,9 @@ class _TimerFormDialogState extends State<TimerFormDialog> {
                       const SizedBox(height: 12),
                       
                       CustomizationPicker(
-                        initialIcon: _selectedIcon,
+                        initialIconName: _selectedIconName,
                         initialColor: _selectedColor,
-                        onIconChanged: (icon) => setState(() => _selectedIcon = icon),
+                        onIconChanged: (iconName) => setState(() => _selectedIconName = iconName),
                         onColorChanged: (color) => setState(() => _selectedColor = color),
                       ),
                       
@@ -530,7 +530,7 @@ class _TimerFormDialogState extends State<TimerFormDialog> {
         final updatedTimer = widget.timer!.copyWith(
           name: _nameController.text.trim(),
           targetDateTime: _selectedDateTime,
-          icon: _selectedIcon,
+          iconName: _selectedIconName,
           themeColor: _selectedColor,
           recurrenceType: _recurrenceType,
           hasNotification: _hasNotification,
@@ -543,7 +543,7 @@ class _TimerFormDialogState extends State<TimerFormDialog> {
         final newTimer = TimerModel(
           name: _nameController.text.trim(),
           targetDateTime: _selectedDateTime,
-          icon: _selectedIcon,
+          iconName: _selectedIconName,
           themeColor: _selectedColor,
           recurrenceType: _recurrenceType,
           hasNotification: _hasNotification,
